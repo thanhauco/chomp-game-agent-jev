@@ -44,13 +44,19 @@
     },
 
     newGame(opts = {}) {
-      if (this.main) this.sessions.delete(this.main);
       const controller = this.makeController(this.mode === 'play' ? 'human' : this.agentKey);
-      this.main = this.newSession({ seed: opts.seed, controller });
-      this.main.isMain = true;
-      this.sessions.add(this.main);
-      this.mainRenderer.setMaze(this.maze);
-      this.emit('newgame', this.main);
+      this.adoptSession(this.newSession({ seed: opts.seed, controller }));
+    },
+
+    // Make a session the one shown on the Play tab (new games, imports).
+    adoptSession(session) {
+      if (this.main) this.sessions.delete(this.main);
+      session.onEntry = (entry, s) => this.emit('entry', entry, s);
+      session.isMain = true;
+      this.main = session;
+      this.sessions.add(session);
+      this.mainRenderer.setMaze(session.maze);
+      this.emit('newgame', session);
       this.refresh(true);
     },
 
