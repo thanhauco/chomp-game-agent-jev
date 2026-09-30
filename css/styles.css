@@ -99,3 +99,12 @@ kbd { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 4px;
 pre.json.small { font-size: 12px; line-height: 1.6; }
 input[type="number"] { width: 9em; }
 @media (max-width: 760px) { .duel-grid { grid-template-columns: 1fr; } }
+
+/* Settings drawers */
+details.settings { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; }
+details.settings summary { cursor: pointer; font-weight: 500; }
+.settings-grid { display: grid; grid-template-columns: max-content minmax(0, 360px); gap: 10px 14px; align-items: center; margin-top: 12px; }
+.settings-grid > label { color: var(--muted); font-size: 13px; }
+label.check { display: inline-flex; gap: 8px; align-items: center; color: var(--text); font-size: 13px; }
+button.link { background: none; padding: 0; color: var(--accent); text-decoration: underline; font-size: inherit; }
+@media (max-width: 560px) { .settings-grid { grid-template-columns: 1fr; } }

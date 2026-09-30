@@ -57,6 +57,23 @@
         </label>
       </div>
 
+      <details class="settings" id="claudeBox" hidden>
+        <summary>Claude agent settings</summary>
+        <div class="settings-grid">
+          <label for="claudeKey">Anthropic API key</label>
+          <input id="claudeKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…">
+          <label for="claudeModel">Model</label>
+          <select id="claudeModel"></select>
+          <label for="claudeEffort">Effort</label>
+          <select id="claudeEffort">
+            <option value="low">Low (fastest)</option><option value="medium">Medium</option><option value="high">High</option>
+          </select>
+          <span></span>
+          <label class="check"><input id="claudeRemember" type="checkbox"> Remember the key on this device</label>
+        </div>
+        <p class="hint">The key stays in this browser and is sent only to api.anthropic.com. Every move is one API request, billed to your key. The game waits for each answer, so the speed setting has less effect. If a request fails, the heuristic plays that move and the panel says why. <button id="claudeForget" class="link">Forget key</button></p>
+      </details>
+
       <div class="scrub">
         <span>0</span>
         <input id="scrub" type="range" min="0" max="0" value="0" aria-label="Move timeline">
@@ -89,11 +106,13 @@
 <script src="js/agents/heuristic.js"></script>
 <script src="js/agents/human.js"></script>
 <script src="js/agents/random.js"></script>
+<script src="js/agents/claude.js"></script>
 <script src="js/render/renderer.js"></script>
 <script src="js/render/panel.js"></script>
 <script src="js/app/session.js"></script>
 <script src="js/app/app.js"></script>
 <!-- features -->
 <script src="js/features/duel.js"></script>
+<script src="js/features/claude-settings.js"></script>
 </body>
 </html>
