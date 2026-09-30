@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chomp Agent</title>
+  <meta name="description" content="A maze-chase game where an agent explains every move as JSON: choice, probabilities and confidence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Chomp Agent</h1>
+      <span class="sub">Every move, explained as JSON.</span>
+    </div>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Sections"></nav>
+    <div class="toggles" id="toggles"></div>
+  </header>
+
+  <main>
+    <section class="tab" id="tab-play" data-label="Play">
+      <div class="card">
+        <div class="board" id="board"><canvas id="cv" aria-label="Game board"></canvas></div>
+        <div class="panel" id="panel">
+          <div class="move"><span id="moveLabel">Move 0 of 0</span> <span class="seed" id="seedLabel"></span></div>
+          <pre class="json" id="json"></pre>
+          <div class="event" id="event" aria-live="polite"></div>
+          <dl class="stats">
+            <div><dt>Score</dt><dd id="score">0</dd></div>
+            <div><dt>Lives</dt><dd id="lives">3</dd></div>
+            <div><dt>Level</dt><dd id="level">1</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="controls" id="controls">
+        <div class="seg" role="group" aria-label="Who is playing">
+          <button id="mWatch" aria-pressed="true">Watch agent</button>
+          <button id="mPlay" aria-pressed="false">Play yourself</button>
+        </div>
+        <label class="ctl" for="agent">Agent <select id="agent"></select></label>
+        <button id="btnPlay">Pause</button>
+        <button id="btnRestart">New game</button>
+        <button id="btnFork" disabled>Resume from this move</button>
+        <label class="ctl" for="speed">Speed
+          <select id="speed">
+            <option value="0.5">0.5×</option><option value="1" selected>1×</option>
+            <option value="2">2×</option><option value="4">4×</option>
+          </select>
+        </label>
+        <label class="ctl" id="tempWrap" for="temp">Temperature
+          <input id="temp" type="range" min="0.2" max="6" step="0.1" value="1.5"><output id="tempOut">1.5</output>
+        </label>
+      </div>
+
+      <div class="scrub">
+        <span>0</span>
+        <input id="scrub" type="range" min="0" max="0" value="0" aria-label="Move timeline">
+        <span id="scrubMax">0</span>
+      </div>
+      <p class="hint">Arrow keys or <kbd>WASD</kbd> take control, or swipe on the board. <kbd>Space</kbd> pauses. Drag the timeline to review any move.</p>
+      <p class="caption" id="caption"></p>
+    </section>
+  </main>
+</div>
+
+<script src="js/core/rng.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/core/maze.js"></script>
+<script src="js/core/engine.js"></script>
+<script src="js/agents/registry.js"></script>
+<script src="js/agents/features.js"></script>
+<script src="js/agents/heuristic.js"></script>
+<script src="js/agents/human.js"></script>
+<script src="js/render/renderer.js"></script>
+<script src="js/render/panel.js"></script>
+<script src="js/app/session.js"></script>
+<script src="js/app/app.js"></script>
+<!-- features -->
+</body>
+</html>
