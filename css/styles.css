@@ -3,7 +3,7 @@
 :root {
   --bg: #f4f4f1; --card: #ffffff; --line: #e3e2dc; --text: #2a2a26; --muted: #7f7e77;
   --accent: #3f8a64; --json: #3f8a64; --btn: #eeede8; --btn-hover: #e5e4de; --danger: #c24a42;
-  --b-bg: #ffffff; --b-wall: #e7e6e0; --b-dot: #1c1c19; --b-door: #d9a0bd; --b-pac: #d6a73c;
+  --b-bg: #ffffff; --b-wall: #e7e6e0; --b-wall-edge: none; --b-dot: #1c1c19; --b-door: #d9a0bd; --b-pac: #d6a73c;
   --b-eye: #ffffff; --b-pupil: #23233a; --b-scared: #4c62d4; --b-text: #2a2a26;
   --b-accent: #3f8a64; --b-danger: #cf5149;
   --b-g-red: #cf5149; --b-g-pink: #d58ac0; --b-g-cyan: #4fb2c6; --b-g-orange: #df9160;
@@ -198,3 +198,28 @@ details summary { cursor: pointer; }
 .w-fill.pos { background: var(--accent); }
 .w-fill.neg { background: var(--danger); }
 @media (max-width: 560px) { .train-form { grid-template-columns: 1fr; } .w-row { grid-template-columns: 1fr; } }
+
+/* Header toggles */
+.toggles button[aria-pressed="true"] { background: var(--accent); color: var(--card); }
+
+/* CRT mode: arcade palette on the boards, scanlines and glow. Kept last so it
+   wins over the light and dark board tokens. */
+:root.crt {
+  --b-bg: #05060a; --b-wall: #070a26; --b-wall-edge: #2f4cff; --b-dot: #f4c7a8; --b-door: #f2a6d8; --b-pac: #ffd426;
+  --b-eye: #ffffff; --b-pupil: #1b2fd6; --b-scared: #2b3dff; --b-text: #ffffff;
+  --b-accent: #58f0a8; --b-danger: #ff3b3b;
+  --b-g-red: #ff2a2a; --b-g-pink: #ffb0e6; --b-g-cyan: #2af0ff; --b-g-orange: #ffb04a;
+}
+:root.crt .board { border-radius: 14px; overflow: hidden; background: var(--b-bg); box-shadow: 0 0 0 1px #000, 0 10px 40px rgba(20, 40, 255, 0.25); }
+:root.crt .board canvas { filter: saturate(1.25) contrast(1.1) drop-shadow(0 0 3px rgba(80, 110, 255, 0.55)); }
+:root.crt .board::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  mix-blend-mode: multiply;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root.crt .board::after { animation: flicker 4s infinite steps(1); }
+  @keyframes flicker { 0%, 100% { opacity: 1; } 47% { opacity: 0.92; } 48% { opacity: 1; } }
+}

@@ -263,6 +263,7 @@
       this.newGame();
       for (const f of C.features) f(this);
       this.initTabs();
+      this.refresh(true); // let features fill their parts of the panel for move 0
       matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => this.refreshTheme());
       new MutationObserver(() => this.refreshTheme())
         .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });

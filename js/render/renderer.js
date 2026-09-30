@@ -7,7 +7,7 @@
 (function (root) {
   'use strict';
   const C = (root.Chomp = root.Chomp || {});
-  const TOKENS = ['bg', 'wall', 'dot', 'door', 'pac', 'eye', 'pupil', 'scared', 'text', 'accent', 'danger',
+  const TOKENS = ['bg', 'wall', 'wall-edge', 'dot', 'door', 'pac', 'eye', 'pupil', 'scared', 'text', 'accent', 'danger',
     'g-red', 'g-pink', 'g-cyan', 'g-orange'];
   const ANGLE = { right: 0, down: Math.PI / 2, left: Math.PI, up: -Math.PI / 2 };
 
@@ -65,6 +65,26 @@
         for (let x = 0; x < maze.W; x++) {
           if (maze.rows[y][x] === '#') ctx.fillRect(x * ts - 0.3, y * ts - 0.3, ts + 0.6, ts + 0.6);
         }
+      }
+      // Optional outline where walls meet floor (the CRT theme sets --b-wall-edge).
+      if (c['wall-edge'] && c['wall-edge'] !== 'none') {
+        const inset = ts * 0.18;
+        ctx.strokeStyle = c['wall-edge'];
+        ctx.lineWidth = Math.max(1.5, ts * 0.09);
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        const open = (x, y) => y >= 0 && y < maze.H && x >= 0 && x < maze.W && maze.rows[y][x] !== '#';
+        for (let y = 0; y < maze.H; y++) {
+          for (let x = 0; x < maze.W; x++) {
+            if (maze.rows[y][x] !== '#') continue;
+            const x0 = x * ts, y0 = y * ts;
+            if (open(x, y - 1)) { ctx.moveTo(x0, y0 + inset); ctx.lineTo(x0 + ts, y0 + inset); }
+            if (open(x, y + 1)) { ctx.moveTo(x0, y0 + ts - inset); ctx.lineTo(x0 + ts, y0 + ts - inset); }
+            if (open(x - 1, y)) { ctx.moveTo(x0 + inset, y0); ctx.lineTo(x0 + inset, y0 + ts); }
+            if (open(x + 1, y)) { ctx.moveTo(x0 + ts - inset, y0); ctx.lineTo(x0 + ts - inset, y0 + ts); }
+          }
+        }
+        ctx.stroke();
       }
       ctx.fillStyle = c.door;
       ctx.fillRect(maze.door.x * ts, (maze.door.y + 0.42) * ts, ts, ts * 0.16);
