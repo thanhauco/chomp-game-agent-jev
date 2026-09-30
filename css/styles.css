@@ -181,3 +181,20 @@ details summary { cursor: pointer; }
 .pill.agent { background: color-mix(in srgb, var(--accent) 22%, transparent); }
 .pill.assisted { background: color-mix(in srgb, var(--b-g-cyan) 24%, transparent); }
 .mono { font-family: var(--mono); font-size: 12px; }
+
+/* Trainer */
+.train-form { display: grid; grid-template-columns: max-content 10em; gap: 8px 14px; align-items: center; }
+.train-form label { color: var(--muted); font-size: 13px; }
+.legend { display: flex; gap: 18px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.lg-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); opacity: 0.6; display: inline-block; }
+.lg-line { width: 16px; height: 2px; background: var(--accent); display: inline-block; }
+.weights { display: grid; gap: 6px; max-width: 560px; }
+.w-row { display: grid; grid-template-columns: minmax(0, 14em) 1fr 4.5em; gap: 10px; align-items: center; font-size: 13px; }
+.w-row .mono { text-align: right; }
+.w-track { position: relative; height: 10px; background: var(--btn); border-radius: 5px; }
+.w-track::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--muted); }
+.w-fill { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+.w-fill.pos { background: var(--accent); }
+.w-fill.neg { background: var(--danger); }
+@media (max-width: 560px) { .train-form { grid-template-columns: 1fr; } .w-row { grid-template-columns: 1fr; } }
