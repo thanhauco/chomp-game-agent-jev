@@ -84,6 +84,7 @@
       const sel = $('agent');
       sel.innerHTML = C.agents.list().map((a) => `<option value="${a.key}">${a.label}</option>`).join('');
       sel.value = this.agentKey;
+      this.emit('agents');
     },
 
     // Tabs are built from <section class="tab" data-label="..."> elements.

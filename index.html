@@ -65,6 +65,18 @@
       <p class="hint">Arrow keys or <kbd>WASD</kbd> take control, or swipe on the board. <kbd>Space</kbd> pauses. Drag the timeline to review any move.</p>
       <p class="caption" id="caption"></p>
     </section>
+    <section class="tab" id="tab-duel" data-label="Duel" hidden>
+      <div class="controls">
+        <label class="ctl" for="duelSeed">Seed <input id="duelSeed" type="number" min="0" step="1"></label>
+        <button id="duelRandom">New seed</button>
+        <label class="ctl" for="duelCap">Move cap <input id="duelCap" type="number" min="100" step="100" value="1500"></label>
+        <button id="duelStart" class="primary">Start duel</button>
+        <button id="duelPause">Pause</button>
+      </div>
+      <p class="hint">Both agents play the same maze from the same seed, so the ghosts roll the same dice. Any difference comes from the agents' choices.</p>
+      <div class="duel-grid" id="duelGrid"></div>
+      <div class="event" id="duelResult" aria-live="polite"></div>
+    </section>
   </main>
 </div>
 
@@ -76,10 +88,12 @@
 <script src="js/agents/features.js"></script>
 <script src="js/agents/heuristic.js"></script>
 <script src="js/agents/human.js"></script>
+<script src="js/agents/random.js"></script>
 <script src="js/render/renderer.js"></script>
 <script src="js/render/panel.js"></script>
 <script src="js/app/session.js"></script>
 <script src="js/app/app.js"></script>
 <!-- features -->
+<script src="js/features/duel.js"></script>
 </body>
 </html>

@@ -29,6 +29,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { margin: 0; }
 body { background: var(--bg); color: var(--text); font: 14px/1.5 var(--sans); }
 .wrap { max-width: 1080px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; }
@@ -91,3 +92,10 @@ kbd { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 4px;
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* Duel */
+.duel-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.duel-side { grid-template-columns: 1fr; gap: 14px; padding: 20px; }
+pre.json.small { font-size: 12px; line-height: 1.6; }
+input[type="number"] { width: 9em; }
+@media (max-width: 760px) { .duel-grid { grid-template-columns: 1fr; } }
