@@ -133,6 +133,39 @@
       return d;
     }
 
+    // Share codes: run-length encoded rows in URL-safe base64, e.g. "CHOMP1.19x21.IzE5..."
+    static encode(rows) {
+      const body = rows.join('');
+      let rle = '';
+      for (let i = 0; i < body.length;) {
+        let j = i;
+        while (j < body.length && body[j] === body[i]) j++;
+        rle += j - i > 2 ? body[i] + (j - i) : body[i].repeat(j - i);
+        i = j;
+      }
+      const b64 = btoa(rle).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      return `CHOMP1.${rows[0].length}x${rows.length}.${b64}`;
+    }
+
+    static decode(code) {
+      const m = /^CHOMP1\.(\d+)x(\d+)\.([A-Za-z0-9_-]+)$/.exec(String(code).trim());
+      if (!m) throw new Error('That is not a maze share code. Codes start with "CHOMP1.".');
+      const W = +m[1], H = +m[2];
+      let rle;
+      try { rle = atob(m[3].replace(/-/g, '+').replace(/_/g, '/')); } catch { throw new Error('The share code is damaged.'); }
+      let body = '';
+      for (let i = 0; i < rle.length;) {
+        const ch = rle[i++];
+        let digits = '';
+        while (i < rle.length && rle[i] >= '0' && rle[i] <= '9') digits += rle[i++];
+        body += digits ? ch.repeat(+digits) : ch;
+      }
+      if (body.length !== W * H) throw new Error('The share code is incomplete.');
+      const rows = [];
+      for (let y = 0; y < H; y++) rows.push(body.slice(y * W, (y + 1) * W));
+      return rows;
+    }
+
     // Returns a list of human-readable problems; an empty list means the maze is playable.
     static validate(rows) {
       const errs = [];
