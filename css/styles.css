@@ -108,3 +108,14 @@ details.settings summary { cursor: pointer; font-weight: 500; }
 label.check { display: inline-flex; gap: 8px; align-items: center; color: var(--text); font-size: 13px; }
 button.link { background: none; padding: 0; color: var(--accent); text-decoration: underline; font-size: inherit; }
 @media (max-width: 560px) { .settings-grid { grid-template-columns: 1fr; } }
+
+/* Reasoning bars */
+.bars { display: grid; gap: 6px; max-width: 360px; }
+.bars-title { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.bar-row { display: grid; grid-template-columns: 3.6em 1fr 3em 3.4em; align-items: center; gap: 8px; font: 12px var(--mono); font-variant-numeric: tabular-nums; }
+.bar-track { height: 8px; background: var(--btn); border-radius: 4px; overflow: hidden; }
+.bar-fill { display: block; height: 100%; background: var(--accent); opacity: 0.55; border-radius: 4px; }
+.bar-row.chosen .bar-fill { opacity: 1; }
+.bar-row.chosen .bar-dir { font-weight: 600; }
+.bar-num { text-align: right; }
+.muted { color: var(--muted); }
