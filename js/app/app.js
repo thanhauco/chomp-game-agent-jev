@@ -81,6 +81,20 @@
       this.refresh(true);
     },
 
+    // Find or create a tab section; features call this before tabs are built.
+    ensureTab(id, label) {
+      let s = $(id);
+      if (!s) {
+        s = document.createElement('section');
+        s.className = 'tab';
+        s.id = id;
+        s.dataset.label = label;
+        s.hidden = true;
+        document.querySelector('main').appendChild(s);
+      }
+      return s;
+    },
+
     addView(renderer, getSession, isVisible) {
       this.views.push({ renderer, getSession, isVisible });
     },
