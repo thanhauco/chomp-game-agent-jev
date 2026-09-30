@@ -46,6 +46,8 @@
       this.canvas.height = Math.max(1, Math.round(r.height * dpr));
       this.ts = r.width / this.maze.W;
       this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Resizing clears the canvas; static pictures repaint through this hook.
+      if (this.onResize) this.onResize();
     }
 
     // Tile coordinates of a point on the canvas, for editors and clicks.

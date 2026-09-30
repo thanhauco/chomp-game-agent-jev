@@ -144,3 +144,12 @@ table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nu
 th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); }
 th { font-weight: 500; color: var(--muted); font-size: 12px; }
 details summary { cursor: pointer; }
+
+/* Heatmaps */
+.heat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 320px)); gap: 20px; }
+.heat-grid figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.heat-grid figcaption { font-size: 13px; display: flex; align-items: center; gap: 8px; }
+.swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.swatch.visits { background: var(--accent); }
+.swatch.deaths { background: var(--danger); }
+@media (max-width: 560px) { .heat-grid { grid-template-columns: 1fr; } }
